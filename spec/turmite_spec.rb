@@ -78,10 +78,4 @@ RSpec.describe Turmite do
     end
   end
 
-  describe 'Knowing your square' do
-    it 'should observe the color of the square it is on' do
-      turmite = Turmite.new( square: 0)
-      expect(turmite.square).to eql(0)
-    end
-  end
 end

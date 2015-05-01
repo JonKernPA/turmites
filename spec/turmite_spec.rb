@@ -59,19 +59,21 @@ RSpec.describe Turmite do
     end
   end
 
-  describe 'Movement' do
+  describe 'Movement onto the next square' do
+
     let(:turmite) {Turmite.new(x:0, y:0, direction: Turmite::NORTH)}
+
     it 'should move 1 square in the specified direction' do
-      turmite.move
+      turmite.move(0)
       expect(turmite.location).to eq [0,1]
       turmite.direction = Turmite::EAST
-      turmite.move
+      turmite.move(0)
       expect(turmite.location).to eq [1,1]
       turmite.direction = Turmite::SOUTH
-      turmite.move
+      turmite.move(0)
       expect(turmite.location).to eq [1,0]
       turmite.direction = Turmite::WEST
-      turmite.move
+      turmite.move(0)
       expect(turmite.location).to eq [0,0]
     end
   end

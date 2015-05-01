@@ -5,14 +5,13 @@ class Turmite
   SOUTH = 2
   WEST = 4
 
-  attr_accessor :state, :square, :location, :direction, :color
+  attr_accessor :state, :location, :direction, :color
 
-  def initialize(x: 0, y: 0, square: 0, direction: NORTH, state: 0, color: 0)
+  def initialize(x: 0, y: 0, direction: NORTH, state: 0, color: 0)
     @direction = direction
     @state = state
     @color = color
-    @square = square
-    @location = location = [x, y]
+    @location = [x, y]
   end
 
   #             N (+y)
@@ -22,7 +21,8 @@ class Turmite
   #             |
   #             v
   #             S (-y)
-  def move
+  def move(square_color)
+    @color = square_color.to_i
     dx = dy = 0
     case @direction
       when Turmite::NORTH
@@ -46,9 +46,7 @@ class Turmite
   end
 
   def turn
-    if state == 0 && (color == 0 || color == 1)
-      # Write color == 1
-      @square = 1
+    if @state == 0 && (@color == 0 || @color == 1)
       # turn right
       case @direction
         when Turmite::NORTH
@@ -61,10 +59,35 @@ class Turmite
           new_direction = Turmite::NORTH
       end
       @direction = new_direction
-      # Next state
-      @state = 1 if color == 1
-    else
 
+      # Next state
+      puts "#{color} Before: #{@state}"
+      @state = 0 if @color == 0
+      @state = 1 if @color == 1
+
+      # Write color == 1
+      @color = 1
+      puts "#{color} After: #{@state}"
+    elsif @state == 1 && (@color == 0 || @color == 1)
+      # turn right
+      case @direction
+        when Turmite::NORTH
+          new_direction = Turmite::EAST
+        when Turmite::SOUTH
+          new_direction = Turmite::WEST
+        when Turmite::EAST
+          new_direction = Turmite::SOUTH
+        when Turmite::WEST
+          new_direction = Turmite::NORTH
+      end
+      @direction = new_direction
+
+      # Next state
+      @state = 0 if @color == 0
+      @state = 1 if @color == 1
+
+      # Write color == 0
+      @color = 0
     end
   end
 

@@ -16,12 +16,8 @@ Given(/^my current state is (.*)$/) do |state|
   @turmite.state = state.to_i
 end
 
-When(/^I move to the next square$/) do
-  @turmite.move
-end
-
-And(/^the square is (.*)$/) do |color|
-  @turmite.square = color.to_i
+When(/^I move to the next square which is (.*)$/) do |color|
+  @turmite.move(color.to_i)
 end
 
 Then(/^I should have turned 90° (.*) and end up facing (.*)$/) do |direction, heading|
@@ -30,7 +26,7 @@ Then(/^I should have turned 90° (.*) and end up facing (.*)$/) do |direction, h
 end
 
 And(/^the square should change to (\d+)$/) do |write_color|
-  expect(@turmite.square).to eq write_color.to_i
+  expect(@turmite.color).to eq write_color.to_i
 end
 
 And(/^my state should change to (\d+)$/) do |next_state|
